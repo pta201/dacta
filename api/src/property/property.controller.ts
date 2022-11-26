@@ -17,9 +17,9 @@ export class PropertyController {
   constructor(private readonly propertyService: PropertyService) {}
 
   @Post()
-  create(@Body() body, @Req() req) {
-    console.log(req);
-    // return this.propertyService.create(createPropertyDto);
+  create(@Body() createPropertyDto: CreatePropertyDto) {
+    // console.log(req);
+    return this.propertyService.create(createPropertyDto);
   }
 
   @Get()

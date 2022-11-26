@@ -7,19 +7,30 @@ import {
   Param,
   Delete,
   Req,
+  UseInterceptors,
+  UploadedFiles,
+  UploadedFile,
 } from '@nestjs/common';
 import { ImageService } from './image.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
-import { Request } from 'express';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+  FilesInterceptor,
+} from '@nestjs/platform-express';
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @Post()
-  create(@Body() createImageDto: CreateImageDto, @Req() req: Request) {
-    console.log(req);
-    return this.imageService.create(createImageDto);
+  // @UseInterceptors(
+  //   FileFieldsInterceptor([{ name: 'image', maxCount: 30 }], {
+  //     dest: '../../images',
+  //   }),
+  // )
+  uploadFile(@UploadedFiles() files) {
+    console.log(files);
   }
 
   @Get()

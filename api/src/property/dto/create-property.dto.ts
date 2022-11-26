@@ -12,5 +12,5 @@ export class CreatePropertyDto {
 
   @ApiProperty()
   @IsNumber()
-  property_type_id: number;
+  property_type_id?: number;
 }
