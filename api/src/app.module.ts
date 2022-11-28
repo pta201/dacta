@@ -1,24 +1,20 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AttributeModule } from './attribute/attribute.module';
-import { PropertyTypeModule } from './property_type/property_type.module';
-import { RoleModule } from './role/role.module';
-import { UserModule } from './user/user.module';
-import { PropertyModule } from './property/property.module';
-import { PropertyAttributeModule } from './property_attribute/property_attribute.module';
-import { ImageModule } from './image/image.module';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { MulterModule } from "@nestjs/platform-express";
+import { AttributeModule } from "./modules/attribute/attribute.module";
+import { PropertyTypeModule } from "./modules/property_type/property_type.module";
+import { RoleModule } from "./modules/role/role.module";
+import { UserModule } from "./modules/user/user.module";
+import { PropertyModule } from "./modules/property/property.module";
+import { PropertyAttributeModule } from "./modules/property_attribute/property_attribute.module";
+import { ImageModule } from "./modules/image/image.module";
+import { typeOrmConfig } from "./config/typeorm.config";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'dacta',
-      autoLoadEntities: true,
-      synchronize: true,
+    TypeOrmModule.forRoot(typeOrmConfig),
+    MulterModule.register({
+      dest: "./upload",
     }),
     AttributeModule,
     PropertyTypeModule,
