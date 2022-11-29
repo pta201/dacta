@@ -1,11 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { CreateImageDto } from './dto/create-image.dto';
-import { UpdateImageDto } from './dto/update-image.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Property } from "../property/entities/property.entity";
+import { CreateImageDto } from "./dto/create-image.dto";
+import { UpdateImageDto } from "./dto/update-image.dto";
+import { Image } from "./entities/image.entity";
 
 @Injectable()
 export class ImageService {
-  create(createImageDto: CreateImageDto) {
-    return 'This action adds a new image';
+  constructor(
+    @InjectRepository(Image)
+    private imageRepo: Repository<Image>
+  ) {}
+  async create(createImageDto: CreateImageDto, property: Property) {
+    const image = this.imageRepo.create({
+      ...createImageDto,
+      property,
+    });
+
+    return this.imageRepo.save(image);
   }
 
   findAll() {

@@ -1,0 +1,10 @@
+{
+    fieldname: 'image',
+    originalname: 'a2.jpg',
+    encoding: '7bit',
+    mimetype: 'image/jpeg',
+    destination: './public/upload/image',
+    filename: 'a2.jpg',
+    path: 'public\\upload\\image\\a2.jpg',
+    size: 9876
+  },

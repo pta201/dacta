@@ -14,8 +14,9 @@ import { PROPERTY_ATTRIBUTE } from "../../const/property-attribute";
 import { propertyApi } from "../../apiClient/endpoints/property";
 import { imageApi } from "../../apiClient/endpoints";
 import { property_attribute_Api } from "../../apiClient/endpoints";
+import { ImageInput } from "./ImageInput";
 export const AddPropertyForm = () => {
-  const { control, register, handleSubmit } = useForm({
+  const { control, register, handleSubmit, setValue } = useForm({
     defaultValues: {
       property: {
         name: "",
@@ -44,11 +45,11 @@ export const AddPropertyForm = () => {
       })
     );
     // Post images
-    // const formData = new FormData();
-    // for (let i = 0; i < images.length; i++) {
-    //   formData.append(`image`, images[i], images[i].name);
-    // }
-    // const imageRes = imageApi.post(formData);
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      formData.append(`image`, images[i], images[i].name);
+    }
+    const imageRes = imageApi.post(formData, property_id);
   };
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -62,7 +63,11 @@ export const AddPropertyForm = () => {
       </FormControl>
       <FormControl>
         <FormLabel>Ảnh tài sản:</FormLabel>
-        <Input type="file" multiple {...register("images")} />
+        <ImageInput
+          register={{ ...register("images") }}
+          setValue={setValue}
+          name={"images"}
+        />
       </FormControl>
       <FormControl>
         <FormLabel>Loại tài sản:</FormLabel>

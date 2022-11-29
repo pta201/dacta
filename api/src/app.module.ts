@@ -9,12 +9,13 @@ import { PropertyModule } from "./modules/property/property.module";
 import { PropertyAttributeModule } from "./modules/property_attribute/property_attribute.module";
 import { ImageModule } from "./modules/image/image.module";
 import { typeOrmConfig } from "./config/typeorm.config";
-
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    MulterModule.register({
-      dest: "./upload",
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: "./upload",
+      }),
     }),
     AttributeModule,
     PropertyTypeModule,

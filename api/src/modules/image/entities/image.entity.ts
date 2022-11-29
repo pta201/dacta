@@ -1,5 +1,5 @@
-import { Property } from 'src/modules/property/entities/property.entity';
-import { Column, PrimaryGeneratedColumn, ManyToOne, Entity } from 'typeorm';
+import { Property } from "src/modules/property/entities/property.entity";
+import { Column, PrimaryGeneratedColumn, ManyToOne, Entity } from "typeorm";
 
 @Entity()
 export class Image {
@@ -9,8 +9,13 @@ export class Image {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   number?: number;
+
+  @Column()
+  path: string;
 
   @ManyToOne(() => Property, (property) => property.images)
   property?: Property;
