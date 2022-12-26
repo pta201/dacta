@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Attribute {
+  id                  Int                  @id @default(autoincrement())
+  name                String
+  Property_Attributes Property_Attribute[]
+}
+
+model Property {
+  id                  Int                  @id @default(autoincrement())
+  property_TypeId     Int
+  property_type       Property_Type?       @relation(fields: [property_TypeId], references: [id])
+  Property_Attributes Property_Attribute[]
+  Image               Image[]
+  userId              Int
+  User                User?                @relation(fields: [userId], references: [id])
+  Appointment         Appointment[]
+}
+
+model Property_Attribute {
+  id          Int        @id @default(autoincrement())
+  propertyId  Int
+  property    Property?  @relation(fields: [propertyId], references: [id])
+  attributeId Int
+  attribute   Attribute? @relation(fields: [attributeId], references: [id])
+  value       String
+}
+
+model Property_Type {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Property Property[]
+}
+
+model Image {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+  path       String
+  number     Int      @unique
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  User User[]
+}
+
+model User {
+  id                 Int           @id @default(autoincrement())
+  roleId             Int?
+  role               Role?         @relation(fields: [roleId], references: [id])
+  Property           Property[]
+  email              String        @unique
+  password           String
+  SellingAppointment Appointment[] @relation("selling")
+  BuyingAppointment  Appointment[] @relation("buying")
+}
+
+model Appointment {
+  id           Int       @id @default(autoincrement())
+  seller       User      @relation(name: "selling", fields: [sellerId], references: [id], onUpdate: NoAction)
+  sellerId     Int
+  buyer        User?     @relation(name: "buying", fields: [buyerId], references: [id], onUpdate: NoAction)
+  buyerId      Int
+  property     Property? @relation(fields: [propertyId], references: [id])
+  time_request DateTime  @unique @default(now())
+
+  propertyId Int
+}

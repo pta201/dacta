@@ -2,11 +2,13 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: "mysql",
-  host: "localhost",
-  port: 3306,
-  username: "root",
-  password: "123456",
-  database: "dacta",
+  host: process.env.DB_HOST || "localhost",
+  port: +process.env.DB_PORT || 3306,
+  username: process.env.DB_USERNAME || "root",
+  password: process.env.DB_PASSWORD || "123456",
+  database: process.env.DB_NAME || "dacta",
   autoLoadEntities: true,
-  synchronize: true,
+  synchronize:
+    // process.env.ENVIROMENT === "development" ? true :
+    false,
 };
