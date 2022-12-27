@@ -7,10 +7,7 @@ export const PropertyAttributeInput = (props) => {
     <div className="flex gap-4 items-end" {...props}>
       <div className="flex flex-col w-[150px]">
         <Text>Loại thuộc tính</Text>
-        <Select
-          _selected={""}
-          {...register(`attributes.${index}.attribute_id`)}
-        >
+        <Select _selected={""} {...register(`attributes.${index}.attributeId`)}>
           {attributes.map((attribute) => (
             <option value={attribute.id}>{attribute.name}</option>
           ))}

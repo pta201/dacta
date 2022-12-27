@@ -12,8 +12,6 @@ import { PropertyTypeSelect } from "./PropertyTypeSelect";
 import { PROPERTY_TYPE } from "../../const/property-type";
 import { PROPERTY_ATTRIBUTE } from "../../const/property-attribute";
 import { propertyApi } from "../../apiClient/endpoints/property";
-import { imageApi } from "../../apiClient/endpoints";
-import { property_attribute_Api } from "../../apiClient/endpoints";
 import { ImageInput } from "./ImageInput";
 export const AddPropertyForm = () => {
   const { control, register, handleSubmit, setValue } = useForm({
@@ -33,23 +31,23 @@ export const AddPropertyForm = () => {
   });
   const onSubmit = async (values) => {
     const { images, property, attributes } = values;
-    // Post property_infos
     const propertyRes = await propertyApi.post({
-      ...property,
+      property,
+      attributes,
     });
-    const { id: property_id } = propertyRes;
-    attributes.forEach((attribute) =>
-      property_attribute_Api.post({
-        property_id,
-        ...attribute,
-      })
-    );
+    // const { id: property_id } = propertyRes;
+    // attributes.forEach((attribute) =>
+    //   property_attribute_Api.post({
+    //     property_id,
+    //     ...attribute,
+    //   })
+    // );
     // Post images
-    const formData = new FormData();
-    for (let i = 0; i < images.length; i++) {
-      formData.append(`image`, images[i], images[i].name);
-    }
-    const imageRes = imageApi.post(formData, property_id);
+    // const formData = new FormData();
+    // for (let i = 0; i < images.length; i++) {
+    //   formData.append(`image`, images[i], images[i].name);
+    // }
+    // const imageRes = imageApi.post(formData, property_id);
   };
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +96,7 @@ export const AddPropertyForm = () => {
             colorScheme="blue"
             onClick={() =>
               append({
-                attribute_id: "1",
+                attributeId: "1",
                 value: "",
               })
             }

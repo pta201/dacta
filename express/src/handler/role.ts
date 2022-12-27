@@ -9,7 +9,6 @@ export const createRole = async (req, res) => {
 };
 
 export const getAllRole = async (req, res) => {
-  console.log("HELLO");
   const roles = await db.role.findMany();
   res.status(200).json(roles);
 };
@@ -23,5 +22,5 @@ export const deleteRole = async (req, res) => {
 };
 
 const findOneById = async (id) => {
-  return await db.role.findUnique({ where: id });
+  return await db.role.findUniqueOrThrow({ where: id });
 };

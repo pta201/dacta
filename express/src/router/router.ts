@@ -1,15 +1,13 @@
-import { handleInputError } from "../middleware/error";
 import { Router } from "express";
-import { body } from "express-validator";
 import roleRouter from "./role";
+import propertyRouter from "./property";
+import propertyTypeRouter from "./property-type";
+import attributeRouter from "./attribute";
 const router = Router();
-/* 
-    Attribute
-*/
 
-/* 
-    Role
-*/
 router.use("", roleRouter);
+router.use("", propertyRouter);
+router.use("", propertyTypeRouter);
+router.use("", attributeRouter);
 
 export default router;

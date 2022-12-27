@@ -44,7 +44,9 @@ model Image {
   propertyId Int
   property   Property @relation(fields: [propertyId], references: [id])
   path       String
-  number     Int      @unique
+  number     Int
+
+  @@unique([number, propertyId])
 }
 
 model Role {

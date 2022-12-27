@@ -4,7 +4,7 @@ import { parse, stringify } from "qs";
 
 // Please have a look at here `https://github.com/axios/axios#request-config` for the full list of configs
 export const axiosClient = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:3001/api",
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -15,12 +15,15 @@ export const axiosClient = axios.create({
   },
 });
 export const setToken = (token) => {
-  axiosClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  // axiosClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  axiosClient.defaults.headers.common = { Authorization: `Bearer ${token}` };
 };
 
 axiosClient.interceptors.request.use(async (config) => {
   // Handle token here ...
-
+  const token = localStorage.getItem("token") || "";
+  // setToken(token);
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
