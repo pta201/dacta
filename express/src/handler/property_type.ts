@@ -22,5 +22,5 @@ export const deletePropertyType = async (req, res) => {
 };
 
 export const findOneById = async (id) => {
-  return await db.property_Type.findUniqueOrThrow({ where: { id: +id } });
+  return await db.property_Type.findFirst({ where: { id: +id } });
 };

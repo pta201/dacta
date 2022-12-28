@@ -15,6 +15,8 @@ model Attribute {
 
 model Property {
   id                  Int                  @id @default(autoincrement())
+  name                String
+  address             String
   property_TypeId     Int
   property_type       Property_Type?       @relation(fields: [property_TypeId], references: [id])
   Property_Attributes Property_Attribute[]
@@ -62,18 +64,21 @@ model User {
   Property           Property[]
   email              String        @unique
   password           String
+  address            String?
+  phone              String?
   SellingAppointment Appointment[] @relation("selling")
   BuyingAppointment  Appointment[] @relation("buying")
 }
 
 model Appointment {
-  id           Int       @id @default(autoincrement())
+  time_request DateTime  @id @default(now())
   seller       User      @relation(name: "selling", fields: [sellerId], references: [id], onUpdate: NoAction)
   sellerId     Int
   buyer        User?     @relation(name: "buying", fields: [buyerId], references: [id], onUpdate: NoAction)
   buyerId      Int
   property     Property? @relation(fields: [propertyId], references: [id])
-  time_request DateTime  @unique @default(now())
+  propertyId   Int
+  date         DateTime?
 
-  propertyId Int
+  // @@unique([id])
 }

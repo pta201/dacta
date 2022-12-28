@@ -22,5 +22,5 @@ export const deleteAttribute = async (req, res) => {
 };
 
 const findOneById = async (id) => {
-  return await db.attribute.findUnique({ where: id });
+  return await db.attribute.findFirst({ where: id });
 };

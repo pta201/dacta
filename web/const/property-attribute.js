@@ -9,10 +9,18 @@ export const PROPERTY_ATTRIBUTE = [
   },
   {
     id: 3,
-    name: "Garage",
+    name: "Area",
   },
   {
     id: 4,
+    name: "Garage",
+  },
+  {
+    id: 5,
     name: "Pool",
+  },
+  {
+    id: 6,
+    name: "Appliances",
   },
 ];

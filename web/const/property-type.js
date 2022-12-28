@@ -1,14 +1,22 @@
 export const PROPERTY_TYPE = [
   {
-    id: 2,
-    name: "Appartment",
+    id: 1,
+    name: "Family Home",
   },
   {
-    id: 1,
-    name: "Condo",
+    id: 2,
+    name: "Land",
   },
   {
     id: 3,
-    name: "Family house",
+    name: "Condo",
+  },
+  {
+    id: 4,
+    name: "Farm",
+  },
+  {
+    id: 5,
+    name: "Townhome",
   },
 ];

@@ -32,3 +32,16 @@ export const signIn = async (req, res) => {
   const token = createJWT(user);
   res.status(200).json({ token });
 };
+
+export const getUserByRole = async (req, res) => {
+  const { roleId } = req.params;
+  const users = await prisma.user.findMany({
+    where: {
+      roleId: { equals: +roleId },
+    },
+    include: {
+      Property: true,
+    },
+  });
+  res.status(200).json(users);
+};

@@ -22,5 +22,5 @@ export const deleteRole = async (req, res) => {
 };
 
 const findOneById = async (id) => {
-  return await db.role.findUniqueOrThrow({ where: id });
+  return await db.role.findFirst({ where: id });
 };

@@ -1,9 +1,13 @@
-import { createProperty } from "./../handler/property";
+import {
+  createProperty,
+  getAllProperty,
+  getPropertyById,
+} from "./../handler/property";
 import { Router } from "express";
 const router = Router();
 
-router.get("/property", () => {});
-router.get("/property/:id", () => {});
+router.get("/property", getAllProperty);
+router.get("/property/:id", getPropertyById);
 router.put("/property/:id", (req, res) => {});
 router.post("/property", createProperty);
 router.delete("/property/:id", () => {});
